@@ -13,7 +13,7 @@ namespace PdfSplitter
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         }
 
-        public static void Split(string inputFilePath, string outputFilePath, string outputNamesFilepath)
+        public static (int, string) Split(string inputFilePath, string outputFilePath, string outputNamesFilepath)
         {
             PdfDocument inputDocument = PdfReader.Open(inputFilePath, PdfDocumentOpenMode.Import);
             string[] outputFileNames = splitNames(outputNamesFilepath);
@@ -28,6 +28,7 @@ namespace PdfSplitter
                 outputDocument.Close();
             }
             inputDocument.Close();
+            return (inputDocument.PageCount, outputFilePath);
         }
         private static string[] splitNames(string outputNamesFilepath)
         {

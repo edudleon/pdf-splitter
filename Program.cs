@@ -6,14 +6,18 @@ namespace PdfSplitter
     {
         static void Main(string[] args)
         {
-            var inputFilepath = @"C:\Users\Eduardo\source\repos\PdfSplitter\test.pdf";
-            var outputFilepath = @"C:\Users\Eduardo\source\repos\PdfSplitter";
-            var outputNamesFilepath = @"C:\Users\Eduardo\source\repos\PdfSplitter\test.csv";
+            Console.WriteLine("Escribe el directorio del archivo PDF a separar: ");
+            var inputFilepath = Console.ReadLine();
+            Console.WriteLine("Escribe el directorio destino de los archivos resultantes: ");
+            var outputFilepath = Console.ReadLine();
+            Console.WriteLine("Escribe el directorio del archivo csv con los nombres custom (si no está presente se darán nombres default):");
+            var outputNamesFilepath = Console.ReadLine();
             var watch = new System.Diagnostics.Stopwatch();
             watch.Start();
-            PdfSplitter.PfSplitter.Split(inputFilepath, outputFilepath, outputNamesFilepath);
+            var outputs = PdfSplitter.PfSplitter.Split(inputFilepath, outputFilepath, outputNamesFilepath);
             watch.Stop();
             Console.WriteLine($"Execution Time: {watch.ElapsedMilliseconds} ms");
+            Console.WriteLine($"Se separaron correctamente {outputs.Item1} archivos, en el directorio {outputs.Item2}");
         }
     }
 }
